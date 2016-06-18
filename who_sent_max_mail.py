@@ -1,18 +1,21 @@
-fname = raw_input('Enter the file name: ')
-try:
-    fhand = open(fname)
-except:
-    print 'File cannot be opened:', fname
-    exit()
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+fhand = open(name)
+
 counts = dict()
+k=dict()
 for line in fhand:
     line = line.rstrip()
     words = line.split()
     if len(words) == 0 or words[0] != 'From':
         continue
-    k = words[1]
-    #print k
-    for word in k:
-        counts[word] = counts.get(word,0) + 1
-print counts
+    counts[words[1]] = counts.get(words[1],0)+1
+    
+max_count =0;
+email = None
+for key,value in counts.items():
+	if value>max_count:
+		max_count = value
+		email = key
 
+print email,max_count
